@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BxFit - Extreme Fitness Tracker</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background:#0a0a0a;
+    color:#eee;
+}
+
+/* ===== HEADER ===== */
+header{
+    position:fixed;
+    width:100%;
+    top:0;
+    background:rgba(0,0,0,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom:3px solid #ff6a00;
+    z-index:1000;
+    box-shadow:0 4px 20px rgba(255,106,0,0.3);
+}
+
+nav{
+  max-width:1200px;
+margin:auto;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+
+.logo{
+    font-size:32px;
+    font-weight:900;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    letter-spacing:3px;
+    text-shadow:0 0 30px rgba(255,106,0,0.5);
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#eee;
+    font-weight:600;
+    transition:0.3s;
+    position:relative;
+}
+
+.nav-links a:hover{
+    color:#ff6a00;
+}
+
+.nav-links a::after{
+    content:'';
+    position:absolute;
+    bottom:-5px;
+    left:0;
+    width:0;
+    height:2px;
+    background:#ff6a00;
+    transition:0.3s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* ===== HERO ===== */
+.hero{
+    height:100vh;
+    background:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
+      url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48') center/cover;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:70px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500, #ffb700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    margin-bottom:20px;
+    animation:glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow{
+    from{filter:drop-shadow(0 0 20px #ff6a00);}
+    to{filter:drop-shadow(0 0 40px #ff9500);}
+}
+
+.hero p{
+    font-size:24px;
+    max-width:800px;
+    margin-bottom:40px;
+    color:#ddd;
+}
+
+.cta{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    color:#fff;
+    border:none;
+    padding:18px 50px;
+    font-size:20px;
+    font-weight:bold;
+    border-radius:50px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 30px rgba(255,106,0,0.6);
+    text-transform:uppercase;
+    letter-spacing:2px;
+}
+
+.cta:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 50px rgba(255,149,0,0.8);
+}
+
+/* ===== FEATURES ===== */
+.section{
+    padding:100px 20px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.section h2{
+    text-align:center;
+    font-size:48px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:70px;
+    font-weight:800;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:35px;
+}
+
+.card{
+    background:linear-gradient(145deg, #111, #1a1a1a);
+    border:2px solid transparent;
+    background-clip:padding-box;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    transition:0.4s;
+    box-shadow:0 5px 25px rgba(255,106,0,0.2);
+    position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius:20px;
+    padding:2px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0;
+    transition:0.4s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.card:hover{
+    transform:translateY(-15px) scale(1.03);
+    box-shadow:0 15px 40px rgba(255,106,0,0.5);
+}
+
+.card span{
+    font-size:50px;
+}
+
+.card h3{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin:20px 0;
+    font-size:22px;
+}
+
+/* ===== STATS ===== */
+.stats{
+    background:linear-gradient(135deg, #000, #1a1a1a);
+    padding:100px 20px;
+    border-top:3px solid #ff6a00;
+    border-bottom:3px solid #ff9500;
+}
+
+.stats-box{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+    text-align:center;
+}
+
+.stat h3{
+    font-size:60px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    font-weight:900;
+}
+
+.stat p{
+    font-size:20px;
+    color:#bbb;
+    margin-top:10px;
+}
+
+/* ===== CALORIE TRACKER ===== */
+.tracker-container{ background:#111;
+     border-radius:25px; 
+     padding:50px;
+      position:relative; 
+      z-index:1; }
+    .tracker-container::before{ content:''; 
+    position:absolute; 
+    top:0; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    border-radius:25px; 
+    padding:3px; 
+    background:linear-gradient(135deg,#ff6a00,#ff9500,#ffb700); 
+    -webkit-mask:linear-gradient(#fff 0 0) 
+    content-box,linear-gradient(#fff 0 0); 
+    -webkit-mask-composite:xor; 
+    mask-composite:exclude; 
+    pointer-events:none;
+ }
+
+.input-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-bottom:35px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:10px;
+    font-weight:700;
+    font-size:15px;
+}
+
+.input-group input, .input-group select{
+    background:rgba(15, 6, 0, 0.921);
+    border:2px solid rgba(255,106,0,0.3);
+    color:#f3f2f2;
+    padding:14px;
+    border-radius:12px;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.input-group input:focus, .input-group select:focus{
+    outline:none;
+    border-color:#ff6a00;
+    box-shadow:0 0 15px rgba(255,106,0,0.4);
+}
+
+.btn{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    color:#fff;
+    border:none;
+    padding:16px 45px;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:25px;
+    box-shadow:0 5px 25px rgba(255,106,0,0.4);
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    box-shadow:0 8px 35px rgba(255,149,0,0.6);
+}
+
+.results{
+    margin-top:40px;
+    padding:40px;
+    background:linear-gradient(145deg, rgba(255,106,0,0.1), rgba(255,149,0,0.1));
+    border:2px solid rgba(255,106,0,0.4);
+    border-radius:25px;
+    display:none;
+    box-shadow:0 10px 40px rgba(255,106,0,0.2);
+}
+
+.results.show{
+    display:block;
+    animation:slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.results h3{
+    font-size:28px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:25px;
+    text-align:center;
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:20px;
+    margin-top:30px;
+}
+
+.result-card{
+    background:rgba(0,0,0,0.4);
+    padding:25px;
+    border-radius:15px;
+    border:1px solid rgba(255,106,0,0.3);
+    text-align:center;
+    transition:0.3s;
+}
+
+.result-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(255,106,0,0.4);
+    border-color:#ff9500;
+}
+
+.result-icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.result-label{
+    color:#ff6a00;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.result-value{
+    font-size:28px;
+    font-weight:bold;
+    color:#fff;
+}
+
+/* ===== DASHBOARD ===== */
+.dashboard{
+    background:linear-gradient(145deg, #0a0a0a, #1a1a1a);
+    border-radius:30px;
+    padding:45px;
+    border:3px solid transparent;
+    box-shadow:0 10px 50px rgba(255,106,0,0.3);
+    position:relative;
+}
+
+.dashboard::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius:30px;
+    padding:3px;
+    background:linear-gradient(135deg, #ff9500, #ffb700);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+}
+
+.dashboard-grid{
+    margin-top:35px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.d-card{
+    background:rgba(255,106,0,0.1);
+    border:2px solid rgba(255,106,0,0.4);
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.d-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 10px 35px rgba(255,149,0,0.4);
+    border-color:#ffb700;
+}
+
+.d-card h4{
+    color:#ff9500;
+    margin-bottom:12px;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.value{
+    font-size:38px;
+    font-weight:900;
+    background:linear-gradient(135deg, #ff6a00, #ffb700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+}
+
+/* ===== STORE ===== */
+.store-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:35px;
+}
+
+.product-card{
+    background:linear-gradient(145deg, #111, #1a1a1a);
+    border:2px solid transparent;
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 5px 25px rgba(255,106,0,0.2);
+    position:relative;
+}
+
+.product-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius:20px;
+    padding:2px;
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0;
+    transition:0.4s;
+}
+
+.product-card:hover::before{
+    opacity:1;
+}
+
+.product-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 15px 45px rgba(255,106,0,0.5);
+}
+
+.product-img{
+    width:100%;
+    height:250px;
+    overflow:hidden;
+    background:#000;
+}
+
+.product-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.product-card:hover .product-img img{
+    transform:scale(1.1);
+}
+
+.product-info{
+    padding:30px;
+}
+
+.product-info h3{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:12px;
+    font-size:22px;
+}
+
+.product-info p{
+    color:#aaa;
+    margin-bottom:18px;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.price{
+    font-size:32px;
+    background:linear-gradient(135deg, #ff6a00, #ffb700);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    font-weight:900;
+    margin-bottom:18px;
+}
+
+.buy-btn{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    color:#fff;
+    border:none;
+    padding:14px 35px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+    width:100%;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.buy-btn:hover{
+    background:linear-gradient(135deg, #ff9500, #ffb700);
+    transform:scale(1.02);
+    box-shadow:0 8px 25px rgba(255,106,0,0.5);
+}
+
+/* ===== VIDEOS ===== */
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+    gap:35px;
+}
+
+.video-card{
+    background:linear-gradient(145deg, #111, #1a1a1a);
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 5px 25px rgba(255,106,0,0.2);
+    border:2px solid transparent;
+    position:relative;
+}
+
+.video-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    border-radius:20px;
+    padding:2px;
+    background:linear-gradient(135deg, #ff6a00, #ffb700);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:0;
+    transition:0.4s;
+}
+
+.video-card:hover::before{
+    opacity:1;
+}
+
+.video-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 15px 40px rgba(255,149,0,0.4);
+}
+
+.video-thumbnail{
+    width:100%;
+    height:200px;
+    overflow:hidden;
+    position:relative;
+    background:#000;
+}
+
+.video-thumbnail img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.play-icon{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:60px;
+    height:60px;
+    background:rgba(255,106,0,0.9);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    color:#fff;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.video-card:hover .play-icon{
+    background:rgba(255,149,0,0.9);
+    transform:translate(-50%, -50%) scale(1.1);
+}
+
+.video-info{
+    padding:25px;
+}
+
+.video-info h3{
+    background:linear-gradient(135deg, #ff6a00, #ff9500);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.video-info p{
+    color:#aaa;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.video-duration{
+    display:inline-block;
+    background:rgba(255,106,0,0.2);
+    color:#ff6a00;
+    padding:5px 12px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    background:#000;
+    border-top:3px solid #ff6a00;
+    text-align:center;
+    padding:35px;
+    margin-top:100px;
+    font-size:16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .hero h1{font-size:45px;}
+    .section h2{font-size:36px;}
+    .input-grid{grid-template-columns:1fr;}
+    .logo{font-size:26px;}
+    .nav-links{gap:15px; font-size:14px;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<div class="logo">BxFit</div>
+<ul class="nav-links">
+<li><a href="#features">Features</a></li>
+<li><a href="#tracker">Tracker</a></li>
+<li><a href="#videos">Videos</a></li>
+<li><a href="#store">Store</a></li>
+</ul>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Build Muscle. Burn Fat. Dominate.</h1>
+<p>Track your workouts, crush your goals, and become the strongest version of yourself with BxFit.</p>
+<button class="cta">Start Training Now</button>
+</section>
+
+<section class="section" id="features">
+<h2>Elite Training Features</h2>
+<div class="features">
+<div class="card"><span>🏋️</span><h3>Workout Logging</h3><p>Record every rep, set, and PR with precision tracking.</p></div>
+<div class="card"><span>🔥</span><h3>Fat Burn Tracking</h3><p>Monitor calories and accelerate fat loss.</p></div>
+<div class="card"><span>📊</span><h3>Progress Analytics</h3><p>Visual insights to push your limits further.</p></div>
+<div class="card"><span>🎯</span><h3>Goal System</h3><p>Set ambitious targets and destroy them.</p></div>
+<div class="card"><span>🥇</span><h3>Achievements</h3><p>Earn rewards for unwavering discipline.</p></div>
+<div class="card"><span>📱</span><h3>Mobile Ready</h3><p>Train anywhere, anytime with full access.</p></div>
+</div>
+</section>
+
+<section class="section" id="tracker">
+<h2>Calorie & Weight Tracker</h2>
+<div class="tracker-container">
+<h3 style="color:#ff6a00; margin-bottom:30px; font-size:24px; text-align:center;">Enter Your Details</h3>
+<div class="input-grid">
+<div class="input-group">
+<label>Current Weight (kg)</label>
+<input type="number" id="currentWeight" placeholder="e.g., 75">
+</div>
+<div class="input-group">
+<label>Target Weight (kg)</label>
+<input type="number" id="targetWeight" placeholder="e.g., 70">
+</div>
+<div class="input-group">
+<label>Height (cm)</label>
+<input type="number" id="height" placeholder="e.g., 175">
+</div>
+<div class="input-group">
+<label>Age (years)</label>
+<input type="number" id="age" placeholder="e.g., 25">
+</div>
+<div class="input-group">
+<label>Gender</label>
+<select id="gender">
+<option value="male">Male</option>
+<option value="female">Female</option>
+</select>
+</div>
+<div class="input-group">
+<label>Activity Level</label>
+<select id="activity">
+<option value="1.2">Sedentary (little or no exercise)</option>
+<option value="1.375">Light (exercise 1-3 days/week)</option>
+<option value="1.55">Moderate (exercise 3-5 days/week)</option>
+<option value="1.725">Active (exercise 6-7 days/week)</option>
+<option value="1.9">Very Active (intense exercise daily)</option>
+</select>
+</div>
+</div>
+<div style="text-align:center;">
+<button class="btn" onclick="calculateGoal()">Calculate My Goals</button>
+</div>
+<div id="results" class="results">
+<h3>🎯 Your Personalized Plan</h3>
+<div class="result-grid">
+<div class="result-card">
+<div class="result-icon">⚖️</div>
+<div class="result-label">Current BMI</div>
+<div class="result-value" id="bmi">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">🔥</div>
+<div class="result-label">Daily Maintenance</div>
+<div class="result-value" id="maintenance">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">📊</div>
+<div class="result-label">Weight Difference</div>
+<div class="result-value" id="weightDiff">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">🎯</div>
+<div class="result-label">Goal Type</div>
+<div class="result-value" style="font-size:18px;" id="goalType">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">🍽️</div>
+<div class="result-label">Target Calories</div>
+<div class="result-value" id="recommended">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">💪</div>
+<div class="result-label">Daily Adjustment</div>
+<div class="result-value" id="adjustment">-</div>
+</div>
+<div class="result-card">
+<div class="result-icon">⏱️</div>
+<div class="result-label">Time to Goal</div>
+<div class="result-value" style="font-size:20px;" id="timeEstimate">-</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="stats" id="stats">
+<div class="stats-box">
+<div class="stat"><h3>80K+</h3><p>Hardcore Athletes</p></div>
+<div class="stat"><h3>5M+</h3><p>Workouts Tracked</p></div>
+<div class="stat"><h3>97%</h3><p>Transformation Success</p></div>
+<div class="stat"><h3>4.9★</h3><p>Gym Rating</p></div>
+</div>
+</section>
+
+<section class="section" id="videos">
+<h2>Fitness & Diet Videos</h2>
+<div class="video-grid">
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b" alt="Gym Workout">
+
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Full Body Workout - Beginner Guide</h3>
+<p>Complete beginner-friendly full body workout routine to build strength and muscle.</p>
+<span class="video-duration">15:30</span>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061" alt="Healthy Food">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>High Protein Diet Plan for Muscle Gain</h3>
+<p>Learn how to create the perfect high-protein meal plan to maximize muscle growth.</p>
+<span class="video-duration">12:45</span>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155" alt="HIIT Training">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>HIIT Cardio for Maximum Fat Burn</h3>
+<p>Intense 20-minute HIIT workout designed to torch calories and melt fat fast.</p>
+<span class="video-duration">20:15</span>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="https://images.unsplash.com/photo-1490818387583-1baba5e638af" alt="Meal Prep">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Weekly Meal Prep for Fitness Goals</h3>
+<p>Step-by-step guide to meal prepping for the entire week to stay on track.</p>
+<span class="video-duration">18:20</span>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="build-your-body-fitness-youtube-thumbnail-des-design-template-56ceb5c0f8802a2a88c467fe425ab79a_screen.jpg" alt="Weight Training">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Strength Training Fundamentals</h3>
+<p>Master the basics of weight training with proper form and technique for results.</p>
+<span class="video-duration">25:00</span>
+</div>
+</div>
+<div class="video-card">
+<div class="video-thumbnail">
+<img src="sports-nutrition-guide.jpg" alt="Nutrition">
+<div class="play-icon">▶</div>
+</div>
+<div class="video-info">
+<h3>Nutrition Basics for Athletes</h3>
+<p>Understanding macros, micros, and how to fuel your body for peak performance.</p>
+<span class="video-duration">14:50</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="dashboard">
+<h2>Warrior Dashboard</h2>
+<div class="dashboard">
+<h3 style="color:#ff9500; font-size:24px;">Today's Performance</h3>
+<div class="dashboard-grid">
+<div class="d-card"><h4>Calories Burned</h4><div class="value">720</div></div>
+<div class="d-card"><h4>Workouts</h4><div class="value">4</div></div>
+<div class="d-card"><h4>Active Minutes</h4><div class="value">120</div></div>
+<div class="d-card"><h4>Streak</h4><div class="value">18🔥</div></div>
+</div>
+</div>
+</section>
+
+<section class="section" id="store">
+<h2>BxFit Store</h2>
+<div class="store-grid">
+<div class="product-card">
+<div class="product-img">
+<img src="whey isolate.jpg" alt="Whey Protein">
+</div>
+<div class="product-info">
+<h3>Whey Protein Isolate</h3>
+<p>Premium 100% whey isolate. 25g protein per serving. Available in Chocolate, Vanilla, and Strawberry.</p>
+<div class="price">₹3,999</div>
+<button class="buy-btn" onclick="buyProduct('Whey Protein Isolate')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="preworkoutextreme.jpg" alt="Pre-Workout">
+</div>
+<div class="product-info">
+<h3>Pre-Workout Extreme</h3>
+<p>High-performance pre-workout formula. Boost energy, focus, and endurance for killer workouts.</p>
+<div class="price">₹2,999</div>
+<button class="buy-btn" onclick="buyProduct('Pre-Workout Extreme')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="adjustabledumbells.jpg" alt="Dumbbells">
+</div>
+<div class="product-info">
+<h3>Adjustable Dumbbells</h3>
+<p>Professional grade dumbbells. Adjustable from 2.5-25 kg. Perfect for home gym warriors.</p>
+<div class="price">₹13,999</div>
+<button class="buy-btn" onclick="buyProduct('Adjustable Dumbbells')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="
+<div class="product-info">
+<h3>Premium Yoga Mat</h3>
+<p>Extra thick 6mm mat with superior grip. Perfect for yoga, stretching, and core workouts.</p>
+<div class="price">₹2,499</div>
+<button class="buy-btn" onclick="buyProduct('Premium Yoga Mat')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="resistancepic.jpg" alt="Resistance Bands">
+</div>
+<div class="product-info">
+<h3>Resistance Bands Set</h3>
+<p>Complete set of 5 resistance levels. Portable training for anywhere, anytime gains.</p>
+<div class="price">₹1,999</div>
+<button class="buy-btn" onclick="buyProduct('Resistance Bands Set')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="massgainer.jpg" alt="Mass Gainer">
+</div>
+<div class="product-info">
+<h3>Mass Gainer Pro</h3>
+<p>High-calorie mass gainer. 50g protein, 250g carbs per serving. Build serious muscle mass.</p>
+<div class="price">₹4,499</div>
+<button class="buy-btn" onclick="buyProduct('Mass Gainer Pro')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="compressionshirt.jpg" alt="Compression Shirt">
+</div>
+<div class="product-info">
+<h3>Compression Shirt</h3>
+<p>Moisture-wicking athletic wear. Supports muscles and enhances recovery during training.</p>
+<div class="price">₹3,499</div>
+<button class="buy-btn" onclick="buyProduct('Compression Shirt')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="fitnesssmartwatch.jpg" alt="Smartwatch">
+</div>
+<div class="product-info">
+<h3>Fitness Smartwatch</h3>
+<p>Track heart rate, calories, steps, and sleep. Waterproof with 7-day battery life.</p>
+<div class="price">₹12,999</div>
+<button class="buy-btn" onclick="buyProduct('Fitness Smartwatch')">Add to Cart</button>
+</div>
+</div>
+<div class="product-card">
+<div class="product-img">
+<img src="foamroller.jpg" alt="Foam Roller">
+</div>
+<div class="product-info">
+<h3>Recovery Foam Roller</h3>
+<p>Professional massage roller. Reduce muscle soreness and improve flexibility fast.</p>
+<div class="price">₹1,799</div>
+<button class="buy-btn" onclick="buyProduct('Recovery Foam Roller')">Add to Cart</button>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<p>© 2026 BxFit Extreme Fitness. Train Hard. Stay Relentless.</p>
+</footer>
+
+<script>
+document.querySelector('.cta').addEventListener('click', ()=>{
+    document.getElementById('tracker').scrollIntoView({behavior:'smooth'});
+});
+
+function calculateGoal(){
+    const cw = parseFloat(document.getElementById('currentWeight').value);
+    const tw = parseFloat(document.getElementById('targetWeight').value);
+    const h = parseFloat(document.getElementById('height').value);
+    const age = parseFloat(document.getElementById('age').value);
+    const gender = document.getElementById('gender').value;
+    const activity = parseFloat(document.getElementById('activity').value);
+
+    if(!cw || !tw || !h || !age){
+        alert('Please fill in all fields!');
+        return;
+    }
+
+    const bmi = (cw / ((h/100) ** 2)).toFixed(1);
+
+    let bmr;
+    if(gender === 'male'){
+        bmr = 10 * cw + 6.25 * h - 5 * age + 5;
+    } else {
+        bmr = 10 * cw + 6.25 * h - 5 * age - 161;
+    }
+
+    const tdee = Math.round(bmr * activity);
+
+    const diff = cw - tw;
+    const absDiff = Math.abs(diff);
+
+    let goalType, recommended, adjustment, timeWeeks;
+
+    if(diff > 0){
+        goalType = 'Weight Loss 🔥';
+        adjustment = -500;
+        recommended = tdee + adjustment;
+        timeWeeks = Math.round((absDiff * 7700) / 3500);
+    } else if(diff < 0){
+        goalType = 'Muscle Gain 💪';
+        adjustment = +500;
+        recommended = tdee + adjustment;
+        timeWeeks = Math.round((absDiff * 7700) / 3500);
+    } else {
+        goalType = 'Maintenance ⚖️';
+        adjustment = 0;
+        recommended = tdee;
+        timeWeeks = 0;
+    }
+
+    document.getElementById('bmi').textContent = bmi;
+    document.getElementById('maintenance').textContent = tdee + ' kcal';
+    document.getElementById('weightDiff').textContent = absDiff.toFixed(1) + ' kg';
+    document.getElementById('goalType').textContent = goalType;
+    document.getElementById('recommended').textContent = recommended + ' kcal';
+    document.getElementById('adjustment').textContent = (adjustment > 0 ? '+' + adjustment : adjustment) + ' kcal';
+    document.getElementById('timeEstimate').textContent = timeWeeks > 0 ? timeWeeks + ' weeks' : 'Achieved!';
+
+    document.getElementById('results').classList.add('show');
+}
+
+function buyProduct(name){
+    alert('Added "' + name + '" to cart! 🛒\n\nCheckout feature coming soon. Keep crushing your goals! 💪');
+}
+</script>
+
+</body>
+</html>
